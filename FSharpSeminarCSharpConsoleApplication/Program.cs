@@ -14,7 +14,7 @@ namespace FSharpSeminarCSharpConsoleApplication
     static void Main(string[] args)
     {
       var numbers = FS.Utils.GetNumbers(1, 20);
-      var squares = FS.Utils.SumSquares(numbers);
+      var squares = FS.Utils.SumSquaresOrElse(numbers);
       
       Console.ReadLine();
     }
