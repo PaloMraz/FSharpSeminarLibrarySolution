@@ -1,0 +1,242 @@
+﻿13. 11. 2014 - Agenda
+
+- Overview
+  - história
+  - filozofia (OO + FP, type inference, CLR! syntax, immutability, expressions...)
+  - platforms, tooling :-(
+
+- OOP
+  - modules, namespaces, classes
+  - ctors
+  - members, fields, parameter passing
+  - encapsulation
+  - polymorphism
+  - structures
+
+- FP specific
+  - lists, sequences, operators, discriminated unions, pattern matching... oh my!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Summary
+  - No FUD - CLR language!
+  - 
+
+
+// Classes
+
+// Interfaces, abstract classes, polymorphism
+
+type IValueProvider =
+  abstract member GetValue: unit -> string
+
+[<AbstractClassAttribute>]
+type CValueProvider =
+  abstract member GetValue: unit -> string
+
+type Base() =
+  interface IValueProvider with
+    member this.GetValue() = this.GetValueCore()
+
+  abstract member GetValueCore: unit -> string
+  default this.GetValueCore() = "Base"
+
+type Derived() =
+  inherit Base()
+  override this.GetValueCore() = "Derived"
+  
+// Discriminated unions
+
+// Structures
+
+type Vector2 =
+  struct
+    val x: float
+    val y: float
+  end 
+  new(x, y) = { x = x; y = y }
+  new(x) = { x = x; y = x }
+  member this.Length() = Math.Sqrt(this.x * this.x + this.y * this.y)
+
+
+// Passing parameters by reference
+
+type Incrementor(count) =
+  member this.Increment(x: int byref) = x <- x + count
+
+let incBy7 = Incrementor(7)
+let mutable x = 3
+incBy7.Increment(ref x)
+assert (10 = x) 
+
+
+
+// Optional arguments
+
+member this.GetFullName() = this.GetFullName(true)
+member this.GetFullName(?withBase: bool) = this.ToString() 
+  
+
+// Named arguments
+
+type Customer() = 
+  let mutable _id = 0
+  let mutable _age = 0
+  let mutable _name = ""
+
+  member this.Id with get() = _id and set(value) = _id <- value
+  member this.Age with get() = _age and set(value) = _age <- value
+  member this.Name 
+    with get() = _name 
+    and set(value) = 
+      _name <- 
+        match value with 
+          | v when System.String.IsNullOrWhiteSpace(v) -> ""
+          | _ -> value
+
+module Utils =
+
+  let Excersise() = 
+    let c = Customer(Id = 10, Age = 12, Name = "kokos")
+    printf "%A" c
+
+
+
+// Pass a null value to a .NET method. 
+
+let ParseDateTime (str: string) =
+    let (success, res) = DateTime.TryParse(str, null, System.Globalization.DateTimeStyles.AssumeUniversal)
+    if success then
+        Some(res)
+    else
+        None
+
+let ParseDateTime (str: string) : Nullable<DateTime> =
+    let (success, res) = DateTime.TryParse(str, null, System.Globalization.DateTimeStyles.AssumeUniversal)
+    if success then
+        Nullable(res)
+    else
+        Nullable<DateTime>()
+
+
+
+// Function argument patterns - tuples, curried
+
+let sum (x, y) = x + y
+
+let sum2 x y = x + y
+
+let result = sum(10, 20)
+
+let result2 = sum2 10 20
+
+
+// Object Expresssions
+
+
+
+// Type extensions
+
+
+
+// Async
+
+
+// 
+
+type Customer(id: int, name: string) = 
+  let mutable _name = name
+  let mutable _age = 0
+  let ValidateName name =
+    if String.IsNullOrEmpty(name) then
+      raise (Exception("Invalid name"))
+
+  new(id: int) = 
+    Customer(id, id.ToString())
+  
+  member this.Name 
+    with get() = _name 
+    and set(value) = 
+      ValidateName(value)
+      this.ValidateName2(value)
+      _name <- value
+    
+  member private this.ValidateName2(name) =
+    if String.IsNullOrEmpty(name) then
+      raise (Exception("Invalid name"))
+
+
+type ICustomerRepository = 
+  abstract member GetAllCustomerIds: unit -> seq<int>
+  abstract member GetCustomerDetails: int -> Customer
+
+
+
+[<AbstractClassAttribute>]
+type BaseCustomerRepository() = 
+  interface ICustomerRepository with
+    member this.GetAllCustomerIds() = this.GetAllCustomerIdsCore()
+    member this.GetCustomerDetails(id: int) = Customer(id)
+
+  abstract member GetAllCustomerIdsCore: unit -> seq<int>
+
+
+type DefaultCustomerRepository() =
+  inherit BaseCustomerRepository()
+  override this.GetAllCustomerIdsCore() = Seq.ofList [1..100]
+
+/// Utility functions...
+module Utils =
+  
+  /// Vrati list 1..n...
+  let GetList(n) = new List<int>(Seq.ofList [1..n])

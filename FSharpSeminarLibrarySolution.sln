@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpSeminarLibrary", "FSharpSeminarLibrary\FSharpSeminarLibrary.fsproj", "{753C5713-016C-459D-B42B-584A828BBD0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSharpSeminarCSharpConsoleApplication", "FSharpSeminarCSharpConsoleApplication\FSharpSeminarCSharpConsoleApplication.csproj", "{D7C03234-12B6-4971-A255-3AC294CEA267}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{753C5713-016C-459D-B42B-584A828BBD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753C5713-016C-459D-B42B-584A828BBD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753C5713-016C-459D-B42B-584A828BBD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753C5713-016C-459D-B42B-584A828BBD0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7C03234-12B6-4971-A255-3AC294CEA267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C03234-12B6-4971-A255-3AC294CEA267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C03234-12B6-4971-A255-3AC294CEA267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C03234-12B6-4971-A255-3AC294CEA267}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
