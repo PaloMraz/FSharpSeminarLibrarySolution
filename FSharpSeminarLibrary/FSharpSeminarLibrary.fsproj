@@ -52,6 +52,9 @@
     <Compile Include="Code.fs" />
     <Content Include="Agenda.txt" />
     <Compile Include="Utils.fs" />
+    <None Include="..\Readme.md">
+      <Link>Readme.md</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
